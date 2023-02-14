@@ -1,10 +1,10 @@
 export default abstract class Vehicle {
-  private id: string | undefined;
-  private model: string;
-  private year: number;
-  private color: string;
-  private status: boolean | undefined;
-  private buyValue: number;
+  protected id: string | undefined;
+  protected model: string;
+  protected year: number;
+  protected color: string;
+  protected status: boolean | undefined;
+  protected buyValue: number;
 
   constructor(
     id: string | undefined,
@@ -18,7 +18,7 @@ export default abstract class Vehicle {
     this.model = model;
     this.year = year;
     this.color = color;
-    this.status = status;
+    this.status = status || false;
     this.buyValue = buyValue;
   }
 
