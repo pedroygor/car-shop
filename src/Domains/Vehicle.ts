@@ -44,11 +44,9 @@ export default abstract class Vehicle {
   public getBuyValue(): number {
     return this.buyValue;
   }
-
   public setId(id: string): void {
     this.id = id;
   }
-  
   public setModel(model: string): void {
     this.model = model;
   }

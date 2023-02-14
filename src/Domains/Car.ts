@@ -12,30 +12,6 @@ export default class Car extends Vehicle {
     this.doorsQty = doorsQty;
     this.seatsQty = seatsQty;
   }
-
-  public getId(): string | undefined {
-    return super.getId();
-  }
-
-  public getModel(): string {
-    return super.getModel();
-  }
-  
-  public getYear(): number {
-    return super.getYear();
-  }
-  
-  public getColor(): string {
-    return super.getColor();
-  }
-  
-  public getStatus(): boolean {
-    return super.getStatus();
-  }
-  
-  public getBuyValue(): number {
-    return super.getBuyValue();
-  }
   
   public getDoorsQty(): number {
     return this.doorsQty;

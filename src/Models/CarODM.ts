@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { isValidObjectId, Schema } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 import AbstractODM from './AbstractODM';
 
@@ -18,5 +18,16 @@ export default class CarODM extends AbstractODM<ICar> {
 
   public async create(car: ICar): Promise<ICar> {
     return this.model.create(car);
+  }
+
+  public async findAll(): Promise<ICar[]> {
+    return this.model.find();
+  }
+
+  public async findById(id: string): Promise<ICar | null | string> {
+    const isValidId = isValidObjectId(id);
+    if (isValidId === false) return 'Invalid mongo id';
+    
+    return this.model.findById(id);
   }
 }
