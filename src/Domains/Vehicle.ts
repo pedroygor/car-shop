@@ -1,17 +1,17 @@
 export default abstract class Vehicle {
-  private id?: string;
+  private id: string | undefined;
   private model: string;
   private year: number;
   private color: string;
-  private status?: boolean;
+  private status: boolean | undefined;
   private buyValue: number;
 
   constructor(
-    id: string,
+    id: string | undefined,
     model: string,
     year: number,
     color: string,
-    status: boolean,
+    status: boolean | undefined,
     buyValue: number,
   ) {
     this.id = id;
@@ -22,10 +22,7 @@ export default abstract class Vehicle {
     this.buyValue = buyValue;
   }
 
-  public getId(): string {
-    if (!this.id) {
-      throw new Error('Id not found');
-    }
+  public getId(): string | undefined {  
     return this.id;
   }
 
@@ -51,6 +48,7 @@ export default abstract class Vehicle {
   public setId(id: string): void {
     this.id = id;
   }
+  
   public setModel(model: string): void {
     this.model = model;
   }
