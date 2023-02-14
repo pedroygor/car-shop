@@ -18,7 +18,7 @@ export default abstract class Vehicle {
     this.model = model;
     this.year = year;
     this.color = color;
-    this.status = status || false;
+    this.status = status;
     this.buyValue = buyValue;
   }
 
