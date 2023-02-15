@@ -31,4 +31,10 @@ export default abstract class AbstractODM<T> {
       { new: true },
     );    
   }
+
+  public async delete(id: string): Promise<T | null> {
+    if (!isValidObjectId(id)) throw Error('Invalid mongo id');
+    
+    return this.model.findByIdAndDelete(id);
+  }
 }

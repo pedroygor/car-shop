@@ -52,4 +52,17 @@ export default class MotorcycleService {
       return message as unknown as string;
     }
   }
+
+  public async delete(id: string): Promise<Motorcycle | null | string> {
+    try {
+      const motorcycleODM = new MotorcycleODM();
+      const deletedMotorcycle = await motorcycleODM.delete(id);
+      if (!deletedMotorcycle) {
+        return null;
+      }
+      return this.createMotorcycleDomain(deletedMotorcycle);
+    } catch ({ message }) {
+      return message as unknown as string;
+    }
+  }
 }

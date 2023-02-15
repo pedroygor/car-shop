@@ -7,12 +7,14 @@ export default class MotorcycleController {
   private res: Response;
   private next: NextFunction;
   private service: MotorcycleService;
+  private errorMotorcycle: string;
 
   constructor(req: Request, res: Response, next: NextFunction) {
     this.req = req;
     this.res = res;
     this.next = next;
     this.service = new MotorcycleService();
+    this.errorMotorcycle = 'Motorcycle not found';
   }
 
   public async create(): Promise<void> {
@@ -50,7 +52,7 @@ export default class MotorcycleController {
       const motorcycle = await this.service.findById(this.req.params.id);
 
       if (!motorcycle) {
-        this.res.status(404).json({ message: 'Motorcycle not found' });
+        this.res.status(404).json({ message: this.errorMotorcycle });
         return;
       }
 
@@ -70,7 +72,7 @@ export default class MotorcycleController {
       const motorcycle = await this.service.update(this.req.params.id, this.req.body);
 
       if (!motorcycle) {
-        this.res.status(404).json({ message: 'Motorcycle not found' });
+        this.res.status(404).json({ message: this.errorMotorcycle });
         return;
       }
 
@@ -80,6 +82,26 @@ export default class MotorcycleController {
       }
 
       this.res.status(200).json(motorcycle);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async delete(): Promise<void> {
+    try {
+      const motorcycle = await this.service.delete(this.req.params.id);
+
+      if (!motorcycle) {
+        this.res.status(404).json({ message: this.errorMotorcycle });
+        return;
+      }
+
+      if (typeof motorcycle === 'string') {
+        this.res.status(422).json({ message: motorcycle });
+        return;
+      }
+
+      this.res.status(204).json();
     } catch (error) {
       this.next(error);
     }
