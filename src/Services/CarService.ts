@@ -51,4 +51,17 @@ export default class CarService {
       return message as unknown as string;
     }
   }
+
+  public async delete(id: string): Promise<Car | null | string> {
+    try {
+      const carODM = new CarODM();
+      const deletedCar = await carODM.delete(id);
+      if (!deletedCar) {
+        return null;
+      }
+      return this.createCarDomain(deletedCar);
+    } catch ({ message }) {
+      return message as unknown as string;
+    }
+  }
 }

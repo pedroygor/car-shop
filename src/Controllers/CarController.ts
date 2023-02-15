@@ -7,6 +7,7 @@ export default class CarController {
   private res: Response;
   private next: NextFunction;
   private service: CarService;
+  private errorCar = 'Car not found';
 
   constructor(req: Request, res: Response, next: NextFunction) {
     this.req = req;
@@ -50,7 +51,7 @@ export default class CarController {
       const car = await this.service.findById(this.req.params.id);
 
       if (!car) {
-        this.res.status(404).json({ message: 'Car not found' });
+        this.res.status(404).json({ message: this.errorCar });
         return;
       }
 
@@ -80,7 +81,7 @@ export default class CarController {
       const updatedCar = await this.service.update(this.req.params.id, car);
 
       if (!updatedCar) {
-        this.res.status(404).json({ message: 'Car not found' });
+        this.res.status(404).json({ message: this.errorCar });
         return;
       }
 
@@ -90,6 +91,26 @@ export default class CarController {
       }
 
       this.res.status(200).json(updatedCar);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async delete(): Promise<void> {
+    try {
+      const deletedCar = await this.service.delete(this.req.params.id);
+
+      if (!deletedCar) {
+        this.res.status(404).json({ message: this.errorCar });
+        return;
+      }
+
+      if (typeof deletedCar === 'string') {
+        this.res.status(422).json({ message: deletedCar });
+        return;
+      }
+
+      this.res.status(204).json();
     } catch (error) {
       this.next(error);
     }
