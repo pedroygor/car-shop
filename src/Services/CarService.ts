@@ -31,11 +31,24 @@ export default class CarService {
     if (!car) {
       return null;
     }
-    
+
     if (typeof car === 'string') {
       return car;
     }
 
     return this.createCarDomain(car);
+  }
+
+  public async update(id: string, car: ICar): Promise<Car | null | string> {
+    try {
+      const carODM = new CarODM();
+      const updatedCar = await carODM.update(id, car);
+      if (!updatedCar) {
+        return null;
+      }
+      return this.createCarDomain(updatedCar);
+    } catch ({ message }) {
+      return message as unknown as string;
+    }
   }
 }
