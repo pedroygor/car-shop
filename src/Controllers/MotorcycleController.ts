@@ -64,4 +64,24 @@ export default class MotorcycleController {
       this.next(error);
     }
   }
+
+  public async update(): Promise<void> {
+    try {
+      const motorcycle = await this.service.update(this.req.params.id, this.req.body);
+
+      if (!motorcycle) {
+        this.res.status(404).json({ message: 'Motorcycle not found' });
+        return;
+      }
+
+      if (typeof motorcycle === 'string') {
+        this.res.status(422).json({ message: motorcycle });
+        return;
+      }
+
+      this.res.status(200).json(motorcycle);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
