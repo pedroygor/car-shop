@@ -252,6 +252,7 @@ DELETE /cars/:id
   }
   ```
 </details>
+
 ### :motorcycle: Motocicletas
 
 #### Cadastrar motocicletas
